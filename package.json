@@ -1,0 +1,22 @@
+{
+  "name": "govgrant-radar",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Global Non-Dilutive Government R&D Grants & Subsidies Matcher",
+  "scripts": {
+    "start": "node server.js",
+    "ingest": "python3 scripts/ingest_grants.py",
+    "test": "node -e \"require('./server.js'); process.exit(0);\""
+  },
+  "keywords": [
+    "grants",
+    "non-dilutive",
+    "sbir",
+    "horizon-europe",
+    "funding",
+    "deeptech",
+    "startups"
+  ],
+  "author": "GovGrant Radar Team",
+  "license": "MIT"
+}

@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GovGrant Radar | Global Non-Dilutive R&D Grants & Subsidies Matcher</title>
+  <meta name="description" content="Discover, match, and track non-dilutive government grants across the US, UK, EU, and Asia. Find non-dilutive funding matching your exact TRL and tech stack in 60 seconds.">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              900: '#064e3b',
+            },
+            dark: {
+              950: '#090d16',
+              900: '#0f172a',
+              850: '#151f38',
+              800: '#1e293b',
+              700: '#334155',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glow-emerald {
+      box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.25);
+    }
+    .badge-gradient {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(6, 78, 59, 0.05) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-dark-950 text-slate-100 font-sans antialiased min-h-screen selection:bg-brand-500 selection:text-dark-950">
+
+  <!-- TOP ANNOUNCEMENT TICKER -->
+  <div class="bg-gradient-to-r from-emerald-950 via-dark-900 to-dark-950 border-b border-emerald-900/40 text-xs py-2 px-4 text-center text-slate-300">
+    <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
+      <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">LIVE RADAR</span>
+      <span>Tracking <strong class="text-white">$10.2M+ USD</strong> in active non-dilutive innovation grants across US (NSF/DOE), UK, EU, Singapore & Thailand.</span>
+      <span class="text-emerald-400 font-semibold ml-2 cursor-pointer hover:underline" onclick="scrollToMatcher()">Run 60-Sec Check &rarr;</span>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <header class="sticky top-0 z-40 glass border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center text-dark-950 font-bold shadow-lg shadow-emerald-500/20">
+          <i data-lucide="radar" class="w-5 h-5 text-dark-950 stroke-[2.5]"></i>
+        </div>
+        <div>
+          <span class="text-lg font-extrabold tracking-tight text-white flex items-center gap-1.5">
+            GovGrant <span class="text-brand-500">Radar</span>
+          </span>
+          <span class="text-[10px] block text-slate-400 font-mono tracking-wider uppercase">Non-Dilutive Capital Intelligence</span>
+        </div>
+      </div>
+
+      <!-- Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#matcher" class="hover:text-emerald-400 transition-colors">TRL Matcher</a>
+        <a href="#directory" class="hover:text-emerald-400 transition-colors">Explore Grants</a>
+        <a href="#how-it-works" class="hover:text-emerald-400 transition-colors">How It Works</a>
+        <a href="#pricing" class="hover:text-emerald-400 transition-colors">Pricing & Audit</a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="flex items-center gap-3">
+        <button onclick="scrollToMatcher()" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-dark-950 text-sm font-bold shadow-md shadow-emerald-500/20 transition-all transform hover:-translate-y-0.5">
+          Check Eligibility Free
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative pt-16 pb-20 overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-950/40 via-dark-950 to-dark-950 pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full badge-gradient text-emerald-400 text-xs font-semibold mb-6">
+        <i data-lucide="shield-check" class="w-4 h-4"></i>
+        <span>100% Non-Dilutive • Zero Equity Taken • Government Backed</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight">
+        Never Give Up 20% Equity for Capital the Government <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">Gives for Free</span>
+      </h1>
+
+      <p class="mt-6 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+        Stop wasting 40 hours wading through bureaucratic 90-page government guidelines. Match your startup's exact <strong class="text-white">Technology Readiness Level (TRL)</strong> and tech stack to active global grants in 60 seconds.
+      </p>
+
+      <!-- Quick Metrics Grid -->
+      <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto">
+        <div class="glass p-4 rounded-xl text-left border border-slate-800">
+          <div class="text-2xl font-black text-emerald-400 font-mono">$150B+</div>
+          <div class="text-xs text-slate-400 mt-1">Global Grant Pool / Year</div>
+        </div>
+        <div class="glass p-4 rounded-xl text-left border border-slate-800">
+          <div class="text-2xl font-black text-white font-mono">0%</div>
+          <div class="text-xs text-slate-400 mt-1">Equity or Dilution</div>
+        </div>
+        <div class="glass p-4 rounded-xl text-left border border-slate-800">
+          <div class="text-2xl font-black text-emerald-400 font-mono">60 Sec</div>
+          <div class="text-xs text-slate-400 mt-1">Instant TRL Matching</div>
+        </div>
+        <div class="glass p-4 rounded-xl text-left border border-slate-800">
+          <div class="text-2xl font-black text-white font-mono">40+</div>
+          <div class="text-xs text-slate-400 mt-1">Funding Agencies Mapped</div>
+        </div>
+      </div>
+
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="scrollToMatcher()" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-extrabold text-base shadow-lg shadow-emerald-500/25 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+          <i data-lucide="sparkles" class="w-5 h-5"></i>
+          Launch Free Eligibility Matcher
+        </button>
+        <a href="#directory" class="w-full sm:w-auto px-8 py-4 rounded-xl glass hover:bg-slate-800 text-slate-200 font-semibold text-base transition-colors flex items-center justify-center gap-2">
+          <i data-lucide="search" class="w-5 h-5 text-emerald-400"></i>
+          Browse All Open Grants
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE TRL ELIGIBILITY CHECKER SECTION -->
+  <section id="matcher" class="py-16 bg-dark-900 border-y border-slate-800/80 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest font-semibold">60-Second Matching Engine</span>
+        <h2 class="text-3xl font-extrabold text-white mt-2">Find Your Exact Grant Matches</h2>
+        <p class="text-slate-400 text-sm mt-2">Answer 4 quick questions to filter out disqualified grants and see your top compatibility rankings.</p>
+      </div>
+
+      <!-- WIZARD CONTAINER -->
+      <div class="glass rounded-2xl p-6 sm:p-10 border border-slate-700/80 shadow-2xl relative glow-emerald">
+        
+        <!-- Progress Bar -->
+        <div class="mb-8">
+          <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
+            <span id="step-label">Step 1 of 4: Operating Location</span>
+            <span id="step-percentage" class="text-emerald-400 font-bold">25% Complete</span>
+          </div>
+          <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+            <div id="progress-bar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full w-1/4 transition-all duration-300"></div>
+          </div>
+        </div>
+
+        <!-- STEP 1: Country & Entity -->
+        <div id="wizard-step-1" class="wizard-step">
+          <h3 class="text-lg font-bold text-white mb-1">Where is your company incorporated or operating?</h3>
+          <p class="text-xs text-slate-400 mb-6">Government innovation grants have strict territorial criteria.</p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+            <button type="button" onclick="selectCountry('USA')" class="country-btn p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60" data-country="USA">
+              <div class="text-2xl mb-1">🇺🇸</div>
+              <div class="font-bold text-white text-sm">United States</div>
+              <div class="text-[11px] text-slate-400">SBIR / STTR / DOE</div>
+            </button>
+            <button type="button" onclick="selectCountry('EU_ALL')" class="country-btn p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60" data-country="EU_ALL">
+              <div class="text-2xl mb-1">🇪🇺</div>
+              <div class="font-bold text-white text-sm">European Union</div>
+              <div class="text-[11px] text-slate-400">Horizon / EIC</div>
+            </button>
+            <button type="button" onclick="selectCountry('GBR')" class="country-btn p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60" data-country="GBR">
+              <div class="text-2xl mb-1">🇬🇧</div>
+              <div class="font-bold text-white text-sm">United Kingdom</div>
+              <div class="text-[11px] text-slate-400">Innovate UK</div>
+            </button>
+            <button type="button" onclick="selectCountry('SGP')" class="country-btn p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60" data-country="SGP">
+              <div class="text-2xl mb-1">🇸🇬</div>
+              <div class="font-bold text-white text-sm">Singapore</div>
+              <div class="text-[11px] text-slate-400">Startup SG Tech</div>
+            </button>
+            <button type="button" onclick="selectCountry('THA')" class="country-btn p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60" data-country="THA">
+              <div class="text-2xl mb-1">🇹🇭</div>
+              <div class="font-bold text-white text-sm">Thailand</div>
+              <div class="text-[11px] text-slate-400">NIA / TED Fund</div>
+            </button>
+            <button type="button" onclick="selectCountry('OTHER')" class="country-btn p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60" data-country="OTHER">
+              <div class="text-2xl mb-1">🌐</div>
+              <div class="font-bold text-white text-sm">International</div>
+              <div class="text-[11px] text-slate-400">Global Consortiums</div>
+            </button>
+          </div>
+
+          <div class="flex justify-end">
+            <button onclick="nextStep(2)" class="px-6 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-bold text-sm flex items-center gap-2">
+              Continue <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Sector -->
+        <div id="wizard-step-2" class="wizard-step hidden">
+          <h3 class="text-lg font-bold text-white mb-1">What is your primary technological sector?</h3>
+          <p class="text-xs text-slate-400 mb-6">Grants are allocated under specialized agency budget mandates.</p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+            <button type="button" onclick="selectSector('ai_ml')" class="sector-btn p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60" data-sector="ai_ml">
+              <i data-lucide="cpu" class="w-5 h-5 text-emerald-400 mb-2"></i>
+              <div class="font-bold text-white text-sm">AI / Machine Learning</div>
+              <div class="text-[11px] text-slate-400">Algorithms, LLMs, Vision</div>
+            </button>
+            <button type="button" onclick="selectSector('cleantech')" class="sector-btn p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60" data-sector="cleantech">
+              <i data-lucide="leaf" class="w-5 h-5 text-emerald-400 mb-2"></i>
+              <div class="font-bold text-white text-sm">CleanTech & Energy</div>
+              <div class="text-[11px] text-slate-400">Solar, Battery, Carbon</div>
+            </button>
+            <button type="button" onclick="selectSector('biotech')" class="sector-btn p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60" data-sector="biotech">
+              <i data-lucide="dna" class="w-5 h-5 text-emerald-400 mb-2"></i>
+              <div class="font-bold text-white text-sm">Biotech & Life Sciences</div>
+              <div class="text-[11px] text-slate-400">Genomics, Pharma, Bio</div>
+            </button>
+            <button type="button" onclick="selectSector('healthtech')" class="sector-btn p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60" data-sector="healthtech">
+              <i data-lucide="activity" class="w-5 h-5 text-emerald-400 mb-2"></i>
+              <div class="font-bold text-white text-sm">Digital Health</div>
+              <div class="text-[11px] text-slate-400">Med Devices, Telehealth</div>
+            </button>
+            <button type="button" onclick="selectSector('robotics')" class="sector-btn p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60" data-sector="robotics">
+              <i data-lucide="bot" class="w-5 h-5 text-emerald-400 mb-2"></i>
+              <div class="font-bold text-white text-sm">Robotics & Hardware</div>
+              <div class="text-[11px] text-slate-400">Drones, Automation, Chips</div>
+            </button>
+            <button type="button" onclick="selectSector('software')" class="sector-btn p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60" data-sector="software">
+              <i data-lucide="code" class="w-5 h-5 text-emerald-400 mb-2"></i>
+              <div class="font-bold text-white text-sm">B2B Software / SaaS</div>
+              <div class="text-[11px] text-slate-400">Cybersecurity, Cloud, FinTech</div>
+            </button>
+          </div>
+
+          <div class="flex justify-between">
+            <button onclick="nextStep(1)" class="px-5 py-2.5 rounded-lg border border-slate-700 text-slate-300 font-semibold text-sm hover:bg-slate-800">Back</button>
+            <button onclick="nextStep(3)" class="px-6 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-bold text-sm flex items-center gap-2">
+              Continue <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 3: TRL Stage -->
+        <div id="wizard-step-3" class="wizard-step hidden">
+          <div class="flex items-center justify-between mb-1">
+            <h3 class="text-lg font-bold text-white">What is your Technology Readiness Level (TRL)?</h3>
+            <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">The Critical Metric</span>
+          </div>
+          <p class="text-xs text-slate-400 mb-6">Government agencies score applications strictly against specific TRL windows.</p>
+
+          <div class="space-y-3 mb-6">
+            <button type="button" onclick="selectTrl(3)" class="trl-btn w-full p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60 flex items-start justify-between" data-trl="3">
+              <div>
+                <div class="font-bold text-white text-sm flex items-center gap-2">
+                  <span class="w-6 h-6 rounded bg-slate-800 text-slate-300 flex items-center justify-center font-mono text-xs">3</span>
+                  TRL 1–3: Concept & Lab Proof-of-Concept
+                </div>
+                <div class="text-xs text-slate-400 mt-1 pl-8">Basic experimental principles validated in lab or simulations. Pre-prototype.</div>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 bg-slate-800 px-2 py-1 rounded">Early Stage</span>
+            </button>
+
+            <button type="button" onclick="selectTrl(5)" class="trl-btn w-full p-4 rounded-xl border border-emerald-500 bg-emerald-950/20 text-left transition-all flex items-start justify-between" data-trl="5">
+              <div>
+                <div class="font-bold text-white text-sm flex items-center gap-2">
+                  <span class="w-6 h-6 rounded bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono text-xs font-bold">5</span>
+                  TRL 4–6: Working Prototype / Relevant Environment
+                </div>
+                <div class="text-xs text-slate-400 mt-1 pl-8">Functional MVP or prototype tested with initial pilot users or bench testing.</div>
+              </div>
+              <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/20 px-2 py-1 rounded font-bold">Highest Win Rate</span>
+            </button>
+
+            <button type="button" onclick="selectTrl(7)" class="trl-btn w-full p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60 flex items-start justify-between" data-trl="7">
+              <div>
+                <div class="font-bold text-white text-sm flex items-center gap-2">
+                  <span class="w-6 h-6 rounded bg-slate-800 text-slate-300 flex items-center justify-center font-mono text-xs">7</span>
+                  TRL 7–9: Commercial Scaling & Operational Deployment
+                </div>
+                <div class="text-xs text-slate-400 mt-1 pl-8">Commercial system deployed in real-world customer operations, ready for scaling.</div>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 bg-slate-800 px-2 py-1 rounded">Late Stage</span>
+            </button>
+          </div>
+
+          <div class="flex justify-between">
+            <button onclick="nextStep(2)" class="px-5 py-2.5 rounded-lg border border-slate-700 text-slate-300 font-semibold text-sm hover:bg-slate-800">Back</button>
+            <button onclick="nextStep(4)" class="px-6 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-bold text-sm flex items-center gap-2">
+              Continue <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Target Capital & Matching Execution -->
+        <div id="wizard-step-4" class="wizard-step hidden">
+          <h3 class="text-lg font-bold text-white mb-1">Target Non-Dilutive Funding Range</h3>
+          <p class="text-xs text-slate-400 mb-6">How much grant capital are you seeking over the next 12 months?</p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+            <button type="button" onclick="selectFunding(250000)" class="funding-btn p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60" data-funding="250000">
+              <div class="font-bold text-white text-base">$50k – $300k</div>
+              <div class="text-xs text-slate-400 mt-1">Ideal for Phase I Proof-of-Concept & MVP builds.</div>
+            </button>
+            <button type="button" onclick="selectFunding(750000)" class="funding-btn p-4 rounded-xl border border-emerald-500 bg-emerald-950/20 text-left transition-all" data-funding="750000">
+              <div class="font-bold text-white text-base">$300k – $1M</div>
+              <div class="text-xs text-slate-400 mt-1">Ideal for pilot validation and team expansion.</div>
+            </button>
+            <button type="button" onclick="selectFunding(2500000)" class="funding-btn p-4 rounded-xl border border-slate-700 hover:border-emerald-500 text-left transition-all bg-slate-900/60" data-funding="2500000">
+              <div class="font-bold text-white text-base">$1M – $3M+</div>
+              <div class="text-xs text-slate-400 mt-1">EIC Accelerator / Large consortium programs.</div>
+            </button>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <button onclick="nextStep(3)" class="px-5 py-2.5 rounded-lg border border-slate-700 text-slate-300 font-semibold text-sm hover:bg-slate-800">Back</button>
+            <button onclick="runMatching()" class="px-8 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-extrabold text-sm shadow-lg shadow-emerald-500/25 flex items-center gap-2">
+              <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
+              Calculate My Matches Now
+            </button>
+          </div>
+        </div>
+
+        <!-- RESULTS STATE (Hidden initially) -->
+        <div id="wizard-results" class="hidden">
+          <div class="text-center py-6">
+            <div class="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto mb-4 font-mono font-extrabold text-xl">
+              <i data-lucide="check-circle" class="w-8 h-8"></i>
+            </div>
+            <h3 class="text-2xl font-black text-white">We Found Matching Capital Opportunities!</h3>
+            <p class="text-slate-400 text-sm mt-1 max-w-md mx-auto">Based on your operating location, TRL stage, and tech sector, here is your compatibility ranking:</p>
+          </div>
+
+          <!-- Matched Grants List -->
+          <div id="matched-grants-container" class="space-y-4 mb-8">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Concierge Conversion Box -->
+          <div class="p-6 rounded-xl bg-gradient-to-r from-emerald-950/60 to-dark-850 border border-emerald-500/40 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-bold bg-emerald-500/20 text-emerald-400 mb-2">
+                <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+                <span>WANT THE FULL AUDIT REPORT?</span>
+              </div>
+              <h4 class="text-base font-bold text-white">Get the Comprehensive $49 Non-Dilutive Grant Audit</h4>
+              <p class="text-xs text-slate-400 mt-1 max-w-lg">Receive a 10-page executive dossier reviewing your eligibility, submission deadlines, required documents, and previous awardee benchmarking. Delivered in 24 hours.</p>
+            </div>
+            <button onclick="openCheckoutModal()" class="w-full sm:w-auto whitespace-nowrap px-6 py-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-extrabold text-sm shadow-md transition-all">
+              Claim $49 Audit Report
+            </button>
+          </div>
+
+          <div class="mt-6 text-center">
+            <button onclick="resetWizard()" class="text-xs text-slate-400 hover:text-white underline">Modify Profile & Recalculate</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE GRANT DIRECTORY SECTION -->
+  <section id="directory" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+      <div>
+        <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest font-semibold">Active Global Directory</span>
+        <h2 class="text-3xl font-extrabold text-white mt-1">Open Non-Dilutive R&D Grants</h2>
+        <p class="text-slate-400 text-sm mt-1">Real-time repository of verified government innovation funding calls.</p>
+      </div>
+
+      <!-- Quick Search Bar -->
+      <div class="relative w-full md:w-80">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"></i>
+        <input type="text" id="grant-search-input" oninput="handleSearch(this.value)" placeholder="Search AI, CleanTech, SBIR..." class="w-full pl-10 pr-4 py-2.5 rounded-xl glass border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+      </div>
+    </div>
+
+    <!-- Filter Badges -->
+    <div class="flex flex-wrap items-center gap-2 mb-8 text-xs font-medium">
+      <span class="text-slate-400 mr-2">Quick Filter:</span>
+      <button onclick="filterBySector('all')" class="sector-chip px-3 py-1.5 rounded-lg border border-emerald-500 bg-emerald-500/20 text-emerald-400" data-filter="all">All Grants</button>
+      <button onclick="filterBySector('ai_ml')" class="sector-chip px-3 py-1.5 rounded-lg border border-slate-800 glass text-slate-300 hover:border-slate-700" data-filter="ai_ml">🤖 AI & DeepTech</button>
+      <button onclick="filterBySector('cleantech')" class="sector-chip px-3 py-1.5 rounded-lg border border-slate-800 glass text-slate-300 hover:border-slate-700" data-filter="cleantech">🌱 CleanTech</button>
+      <button onclick="filterBySector('healthtech')" class="sector-chip px-3 py-1.5 rounded-lg border border-slate-800 glass text-slate-300 hover:border-slate-700" data-filter="healthtech">🧬 HealthTech</button>
+      <button onclick="filterByCountry('USA')" class="country-chip px-3 py-1.5 rounded-lg border border-slate-800 glass text-slate-300 hover:border-slate-700" data-country-filter="USA">🇺🇸 United States</button>
+      <button onclick="filterByCountry('EU_ALL')" class="country-chip px-3 py-1.5 rounded-lg border border-slate-800 glass text-slate-300 hover:border-slate-700" data-country-filter="EU_ALL">🇪🇺 European Union</button>
+      <button onclick="filterByCountry('GBR')" class="country-chip px-3 py-1.5 rounded-lg border border-slate-800 glass text-slate-300 hover:border-slate-700" data-country-filter="GBR">🇬🇧 United Kingdom</button>
+    </div>
+
+    <!-- Grants Grid -->
+    <div id="grants-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Dynamically generated grant cards -->
+    </div>
+  </section>
+
+  <!-- PRICING & CONCIERGE SECTION -->
+  <section id="pricing" class="py-20 bg-dark-900 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest font-semibold">Pricing & Plans</span>
+        <h2 class="text-3xl font-extrabold text-white mt-2">Invest $49 to Unlock $250k+ in Non-Dilutive Capital</h2>
+        <p class="text-slate-400 text-sm mt-2">Traditional grant consultants charge 15% contingency or $5,000 upfront. We provide the intelligence for less than the cost of a team lunch.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        
+        <!-- Tier 1: Free -->
+        <div class="glass p-8 rounded-2xl border border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="text-sm font-bold text-slate-400 uppercase font-mono">Community Matcher</div>
+            <div class="mt-4 flex items-baseline gap-1">
+              <span class="text-4xl font-black text-white">$0</span>
+              <span class="text-slate-500 text-xs">/ forever</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-3">Basic directory search and standard TRL compatibility check.</p>
+
+            <ul class="mt-8 space-y-3 text-xs text-slate-300">
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Public Grant Directory Access</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Free 60-Second TRL Matcher</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Top 3 Matched Grants Shown</span>
+              </li>
+              <li class="flex items-center gap-2 text-slate-600">
+                <i data-lucide="x" class="w-4 h-4"></i>
+                <span>No Deadline Alert Notifications</span>
+              </li>
+              <li class="flex items-center gap-2 text-slate-600">
+                <i data-lucide="x" class="w-4 h-4"></i>
+                <span>No Historical Awardee Comps</span>
+              </li>
+            </ul>
+          </div>
+
+          <button onclick="scrollToMatcher()" class="mt-8 w-full py-3 rounded-xl border border-slate-700 hover:bg-slate-800 text-slate-200 font-bold text-xs transition-colors">
+            Start Free Matcher
+          </button>
+        </div>
+
+        <!-- Tier 2: The $49 Concierge Audit (Highlighted) -->
+        <div class="glass p-8 rounded-2xl border-2 border-emerald-500 relative glow-emerald flex flex-col justify-between">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-dark-950 px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider">
+            Most Popular For Builders
+          </div>
+          <div>
+            <div class="text-sm font-bold text-emerald-400 uppercase font-mono">Custom Grant Audit</div>
+            <div class="mt-4 flex items-baseline gap-1">
+              <span class="text-4xl font-black text-white">$49</span>
+              <span class="text-slate-500 text-xs">/ one-time</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-3">Comprehensive custom eligibility dossier tailored to your exact tech stack. Delivered in 24 hours.</p>
+
+            <ul class="mt-8 space-y-3 text-xs text-slate-300">
+              <li class="flex items-center gap-2">
+                <i data-lucide="check-check" class="w-4 h-4 text-emerald-400"></i>
+                <strong class="text-white">Full 10-Page Custom Audit PDF</strong>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Top 10 Verified Qualified Grants</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Exact Filing Deadlines & Checklist</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Cost-Sharing & Co-Funding Analysis</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>30-Day Email Deadline Reminders</span>
+              </li>
+            </ul>
+          </div>
+
+          <button onclick="openCheckoutModal()" class="mt-8 w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-black text-xs shadow-lg shadow-emerald-500/25 transition-all">
+            Order $49 Custom Audit
+          </button>
+        </div>
+
+        <!-- Tier 3: Pro Radar -->
+        <div class="glass p-8 rounded-2xl border border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="text-sm font-bold text-slate-400 uppercase font-mono">Pro Radar Continuous</div>
+            <div class="mt-4 flex items-baseline gap-1">
+              <span class="text-4xl font-black text-white">$149</span>
+              <span class="text-slate-500 text-xs">/ month</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-3">Ongoing automated radar for active tech laboratories and multi-project agencies.</p>
+
+            <ul class="mt-8 space-y-3 text-xs text-slate-300">
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Unlimited Company Profiles</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Real-Time SMS & Slack Alert Webhooks</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Historical Winning Proposal Abstract Database</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Agency Program Officer Scoring Trends</span>
+              </li>
+            </ul>
+          </div>
+
+          <button onclick="openCheckoutModal('pro')" class="mt-8 w-full py-3 rounded-xl border border-slate-700 hover:bg-slate-800 text-slate-200 font-bold text-xs transition-colors">
+            Subscribe to Pro Radar
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKOUT MODAL -->
+  <div id="checkout-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden">
+    <div class="glass p-8 rounded-2xl border border-emerald-500/50 max-w-md w-full mx-4 shadow-2xl relative">
+      <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-2 text-emerald-400 font-mono text-xs mb-2">
+        <i data-lucide="shield-check" class="w-4 h-4"></i>
+        <span>SECURE CHECKOUT CONCIERGE</span>
+      </div>
+      <h3 class="text-xl font-bold text-white mb-1">Order Custom Grant Audit ($49)</h3>
+      <p class="text-xs text-slate-400 mb-6">Our senior research analysts and automated algorithms will compile your tailored 10-page grant dossier within 24 hours.</p>
+
+      <form onsubmit="handleCheckout(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Company / Project Name</label>
+          <input type="text" required placeholder="e.g. Nexus AI Systems" class="w-full px-3.5 py-2 rounded-lg bg-dark-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-emerald-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Founder Work Email</label>
+          <input type="email" required placeholder="founder@company.com" class="w-full px-3.5 py-2 rounded-lg bg-dark-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-emerald-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">One-sentence Pitch of your Tech</label>
+          <input type="text" required placeholder="e.g. Autonomous drone inspection for solar farms" class="w-full px-3.5 py-2 rounded-lg bg-dark-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-emerald-500">
+        </div>
+
+        <div class="p-3.5 rounded-lg bg-emerald-950/30 border border-emerald-900/60 text-[11px] text-slate-300 space-y-1">
+          <div class="flex justify-between font-semibold text-white">
+            <span>Custom 10-Page Audit Dossier</span>
+            <span>$49.00 USD</span>
+          </div>
+          <div class="flex justify-between text-slate-400">
+            <span>Turnaround Time</span>
+            <span>Guaranteed 24 Hours</span>
+          </div>
+        </div>
+
+        <button type="submit" id="checkout-submit-btn" class="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-black text-sm shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2">
+          <span>Proceed to Payment ($49.00)</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+
+        <p class="text-[10px] text-slate-500 text-center">Protected by 256-bit SSL encryption. 100% money-back guarantee if no eligible grants are identified.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ORDER SUCCESS NOTIFICATION MODAL -->
+  <div id="success-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden">
+    <div class="glass p-8 rounded-2xl border border-emerald-500 max-w-md w-full mx-4 shadow-2xl text-center">
+      <div class="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500 text-emerald-400 flex items-center justify-center mx-auto mb-4 font-black">
+        <i data-lucide="check" class="w-8 h-8"></i>
+      </div>
+      <h3 class="text-xl font-bold text-white">Audit Request Confirmed!</h3>
+      <p class="text-xs text-slate-300 mt-2">Thank you! Your custom non-dilutive grant audit has been queued. Our research pipeline is matching your technology parameters across 40+ agency databases.</p>
+      <div class="mt-6 p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400 font-mono">
+        Audit ID: <span class="text-emerald-400 font-bold" id="order-id">GGR-2026-XXXX</span><br>
+        Delivery ETA: <span class="text-white">Within 24 Hours</span>
+      </div>
+      <button onclick="document.getElementById('success-modal').classList.add('hidden')" class="mt-6 w-full py-2.5 rounded-lg bg-emerald-500 text-dark-950 font-bold text-xs">
+        Return to Dashboard
+      </button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark-950 border-t border-slate-800 py-12 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-md bg-emerald-500 flex items-center justify-center text-dark-950 font-bold">
+          <i data-lucide="radar" class="w-3.5 h-3.5"></i>
+        </div>
+        <span class="font-bold text-slate-300">GovGrant Radar</span>
+        <span>• Global Non-Dilutive Capital Search & Matching Engine</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="#matcher" class="hover:text-slate-300">TRL Matcher</a>
+        <a href="#directory" class="hover:text-slate-300">Grants Directory</a>
+        <a href="#pricing" class="hover:text-slate-300">Pricing</a>
+        <span class="text-slate-600">|</span>
+        <span>© 2026 GovGrant Radar Inc. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic -->
+  <script src="/app.js"></script>
+</body>
+</html>
