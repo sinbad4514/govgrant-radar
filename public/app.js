@@ -447,16 +447,10 @@ function scrollToMatcher() {
 }
 
 // Stripe Payment Link Configuration
-// Paste your live Stripe Payment Link below (e.g. 'https://buy.stripe.com/xxxxxx')
-let STRIPE_PAYMENT_LINK = window.STRIPE_PAYMENT_LINK || '';
+const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/test_aFaeVe1Ip4hgdrQ94acEw00';
 
 // Modal Checkout Controls
 function openCheckoutModal(tier = 'audit') {
-  // If a live Stripe link is already configured, redirect directly
-  if (STRIPE_PAYMENT_LINK && STRIPE_PAYMENT_LINK.startsWith('https://buy.stripe.com/')) {
-    window.open(STRIPE_PAYMENT_LINK, '_blank');
-    return;
-  }
   document.getElementById('checkout-modal').classList.remove('hidden');
 }
 
@@ -470,19 +464,23 @@ function handleCheckout(e) {
   const emailInput = form.querySelector('input[type="email"]');
   const email = emailInput ? emailInput.value.trim() : '';
 
-  // If Stripe payment link is configured, redirect immediately with prefilled email
-  if (STRIPE_PAYMENT_LINK && STRIPE_PAYMENT_LINK.startsWith('https://buy.stripe.com/')) {
-    const separator = STRIPE_PAYMENT_LINK.includes('?') ? '&' : '?';
-    const finalUrl = email ? `${STRIPE_PAYMENT_LINK}${separator}prefilled_email=${encodeURIComponent(email)}` : STRIPE_PAYMENT_LINK;
-    window.location.href = finalUrl;
-    return;
+  // Redirect to live Stripe Checkout with prefilled email
+  const separator = STRIPE_PAYMENT_LINK.includes('?') ? '&' : '?';
+  const finalUrl = email ? `${STRIPE_PAYMENT_LINK}${separator}prefilled_email=${encodeURIComponent(email)}` : STRIPE_PAYMENT_LINK;
+  
+  // Show redirecting status on button
+  const submitBtn = document.getElementById('checkout-submit-btn');
+  if (submitBtn) {
+    submitBtn.innerHTML = `
+      <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-dark-950 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+      </svg>
+      Redirecting to Stripe...
+    `;
   }
-
-  // Fallback demo confirmation if Payment Link is pending
-  closeCheckoutModal();
-  const randomId = 'GGR-' + Math.floor(100000 + Math.random() * 900000);
-  document.getElementById('order-id').innerText = randomId;
-  document.getElementById('success-modal').classList.remove('hidden');
-  lucide.createIcons();
+  
+  window.location.href = finalUrl;
 }
+
 
