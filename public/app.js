@@ -446,8 +446,8 @@ function scrollToMatcher() {
   if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Stripe Payment Link Configuration
-const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/test_aFaeVe1Ip4hgdrQ94acEw00';
+// PayPal Payment Link Configuration
+const PAYPAL_PAYMENT_LINK = 'https://paypal.me/NANTANUTNIMMANARANON/49USD';
 
 // Modal Checkout Controls
 function openCheckoutModal(tier = 'audit') {
@@ -460,13 +460,6 @@ function closeCheckoutModal() {
 
 function handleCheckout(e) {
   e.preventDefault();
-  const form = e.target;
-  const emailInput = form.querySelector('input[type="email"]');
-  const email = emailInput ? emailInput.value.trim() : '';
-
-  // Redirect to live Stripe Checkout with prefilled email
-  const separator = STRIPE_PAYMENT_LINK.includes('?') ? '&' : '?';
-  const finalUrl = email ? `${STRIPE_PAYMENT_LINK}${separator}prefilled_email=${encodeURIComponent(email)}` : STRIPE_PAYMENT_LINK;
   
   // Show redirecting status on button
   const submitBtn = document.getElementById('checkout-submit-btn');
@@ -476,11 +469,15 @@ function handleCheckout(e) {
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
       </svg>
-      Redirecting to Stripe...
+      Redirecting to PayPal ($49)...
     `;
   }
   
-  window.location.href = finalUrl;
+  // Redirect to user's PayPal.Me link
+  setTimeout(() => {
+    window.location.href = PAYPAL_PAYMENT_LINK;
+  }, 400);
 }
+
 
 
